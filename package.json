@@ -1,14 +1,123 @@
 {
   "name": "script",
   "main": "./lib/script",
-  "version": "3.26.0",
+  "version": "3.32.2",
   "private": false,
   "description": "Run code in Atom!",
   "author": "Kyle Kelley <rgbkrk@gmail.com>",
+  "repository": "https://github.com/atom-ide-community/atom-script",
+  "license": "Apache-2.0",
+  "engines": {
+    "atom": ">=0.174.0"
+  },
+  "prettier": "prettier-config-atomic",
+  "scripts": {
+    "format": "prettier --write .",
+    "test.format": "prettier . --check",
+    "lint": "eslint . --fix",
+    "test.lint": "eslint .",
+    "test": "atom --test spec"
+  },
+  "dependencies": {
+    "@babel/core": "^7.14.0",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.14.1",
+    "@babel/preset-react": "^7.13.13",
+    "ansi-to-html": "^0.6.14",
+    "atom-message-panel": "1.3.1",
+    "atom-space-pen-views-plus": "^3.0.4",
+    "rimraf": "^3.0.2",
+    "strip-ansi": "<7.0.0",
+    "temp": "^0.9.4",
+    "underscore": "^1.13.1",
+    "uuid": "^8.3.2"
+  },
+  "optionalDependencies": {
+    "coffeescript": "^2"
+  },
+  "devDependencies": {
+    "@types/atom": "^1.40.10",
+    "@types/jasmine": "^3.7.2",
+    "@types/node": "^15.0.2",
+    "@types/rimraf": "^3.0.0",
+    "@types/temp": "^0.9.0",
+    "@types/underscore": "^1.11.2",
+    "@types/uuid": "^8.3.0",
+    "eslint-config-atomic": "^1.14.4",
+    "prettier-config-atomic": "^2.0.4"
+  },
+  "activationCommands": {
+    "atom-text-editor": [
+      "script:run",
+      "script:run-by-line-number",
+      "script:run-options",
+      "script:run-with-profile"
+    ]
+  },
+  "activationHooks": [
+    "core:loaded-shell-environment"
+  ],
+  "providedServices": {
+    "default-script-runtime": {
+      "description": "Provides default runtime that's configurable through Atom editor",
+      "versions": {
+        "0.1.0": "provideDefaultRuntime"
+      }
+    },
+    "provide-blank-runtime": {
+      "description": "Provides a Runtime instance that's intended to be more programatically configurable",
+      "versions": {
+        "0.1.0": "provideBlankRuntime"
+      }
+    }
+  },
+  "keywords": [
+    "script",
+    "runner",
+    "Bash",
+    "Behat Feature",
+    "Clojure",
+    "Coffeescript",
+    "CoffeeScript (Literate)",
+    "Cucumber (Gherkin)",
+    "Elixir",
+    "Erlang",
+    "F#",
+    "FSharp",
+    "F*",
+    "FStar",
+    "Go",
+    "Groovy",
+    "Haskell",
+    "Javascript",
+    "Julia",
+    "LaTeX",
+    "Lua",
+    "mongoDB",
+    "newLISP",
+    "Perl",
+    "PHP",
+    "PowerShell",
+    "Python",
+    "Raku",
+    "RSpec",
+    "Ruby",
+    "Ruby on Rails",
+    "Scala",
+    "Swift",
+    "run",
+    "Applescript",
+    "code",
+    "LAMMPS"
+  ],
   "contributors": [
     {
       "name": "Kyle Kelley",
       "email": "rgbkrk@gmail.com"
+    },
+    {
+      "name": "Amin Yahyaabadi",
+      "email": "aminyahyaabadi74@gmail.com"
     },
     {
       "name": "GeneLocklin",
@@ -278,105 +387,5 @@
       "name": "Bruno Durán",
       "email": "bruno.duran.rey@gmail.com"
     }
-  ],
-  "repository": "https://github.com/rgbkrk/atom-script",
-  "keywords": [
-    "script",
-    "runner",
-    "Bash",
-    "Behat Feature",
-    "Clojure",
-    "Coffeescript",
-    "CoffeeScript (Literate)",
-    "Cucumber (Gherkin)",
-    "Elixir",
-    "Erlang",
-    "F#",
-    "FSharp",
-    "F*",
-    "FStar",
-    "Go",
-    "Groovy",
-    "Haskell",
-    "Javascript",
-    "Julia",
-    "LaTeX",
-    "Lua",
-    "mongoDB",
-    "newLISP",
-    "Perl",
-    "PHP",
-    "PowerShell",
-    "Python",
-    "RSpec",
-    "Ruby",
-    "Ruby on Rails",
-    "Scala",
-    "Swift",
-    "run",
-    "Applescript",
-    "code",
-    "LAMMPS"
-  ],
-  "license": "Apache-2.0",
-  "engines": {
-    "atom": ">=0.174.0"
-  },
-  "activationCommands": {
-    "atom-text-editor": [
-      "script:run",
-      "script:run-by-line-number",
-      "script:run-options",
-      "script:run-with-profile"
-    ]
-  },
-  "dependencies": {
-    "ansi-to-html": "^0.4.2",
-    "atom-message-panel": "1.3.1",
-    "atom-space-pen-views": "^2.0.3",
-    "babel-preset-env": "^1.6.0",
-    "strip-ansi": "^3.0.0",
-    "underscore": "^1.8.3",
-    "uuid": "^3.0.1"
-  },
-  "optionalDependencies": {
-    "babel-cli": "^6.26.0",
-    "coffeescript": "^2"
-  },
-  "devDependencies": {
-    "babel-eslint": "^7.1.1",
-    "eslint": "^4.18.2",
-    "eslint-config-airbnb-base": "^10.0.1",
-    "eslint-plugin-import": "^2.2.0"
-  },
-  "providedServices": {
-    "default-script-runtime": {
-      "description": "Provides default runtime that's configurable through Atom editor",
-      "versions": {
-        "0.1.0": "provideDefaultRuntime"
-      }
-    },
-    "provide-blank-runtime": {
-      "description": "Provides a Runtime instance that's intended to be more programatically configurable",
-      "versions": {
-        "0.1.0": "provideBlankRuntime"
-      }
-    }
-  },
-  "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
-  },
-  "babel": {
-    "presets": [
-      [
-        "env",
-        {
-          "targets": {
-            "node": "current"
-          }
-        }
-      ]
-    ]
-  }
+  ]
 }
